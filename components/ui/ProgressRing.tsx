@@ -6,9 +6,9 @@ import { colors } from "../../theme";
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-interface ProgressRingProps { percent: number; size?: number; strokeWidth?: number; color?: string; label?: string; }
+interface ProgressRingProps { percent: number; size?: number; strokeWidth?: number; color?: string; label?: string; hideCenter?: boolean; }
 
-export function ProgressRing({ percent, size = 80, strokeWidth = 8, color = colors.accent.DEFAULT, label }: ProgressRingProps) {
+export function ProgressRing({ percent, size = 80, strokeWidth = 8, color = colors.accent.DEFAULT, label, hideCenter = false }: ProgressRingProps) {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const progress = useSharedValue(0);
@@ -26,10 +26,12 @@ export function ProgressRing({ percent, size = 80, strokeWidth = 8, color = colo
         <AnimatedCircle cx={size / 2} cy={size / 2} r={radius} stroke={color} strokeWidth={strokeWidth} fill="none"
           strokeDasharray={circumference} animatedProps={animatedProps} strokeLinecap="round" rotation="-90" origin={`${size / 2}, ${size / 2}`} />
       </Svg>
-      <View style={{ position: "absolute", alignItems: "center" }}>
-        <Text style={{ fontFamily: "Inter_800ExtraBold", fontSize: size * 0.22, color: colors.text.primary }}>{percent}%</Text>
-        {label && <Text style={{ fontFamily: "Inter_500Medium", fontSize: size * 0.12, color: colors.text.secondary }}>{label}</Text>}
-      </View>
+      {!hideCenter && (
+        <View style={{ position: "absolute", alignItems: "center" }}>
+          <Text style={{ fontFamily: "Inter_800ExtraBold", fontSize: size * 0.22, color: colors.text.primary }}>{percent}%</Text>
+          {label && <Text style={{ fontFamily: "Inter_500Medium", fontSize: size * 0.12, color: colors.text.secondary }}>{label}</Text>}
+        </View>
+      )}
     </View>
   );
 }

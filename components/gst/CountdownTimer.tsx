@@ -48,7 +48,7 @@ export function CountdownTimer() {
       </Text>
 
       <View style={{ position: "relative" }}>
-        <ProgressRing percent={percent} size={120} strokeWidth={10} color={ringColor} />
+        <ProgressRing percent={percent} size={120} strokeWidth={10} color={ringColor} hideCenter />
         {/* Override center content with days */}
         <View style={{ position: "absolute", inset: 0, alignItems: "center", justifyContent: "center" }}>
           <Text style={{ fontFamily: "Inter_800ExtraBold", fontSize: 32, color: isOverdue ? colors.error : colors.text.primary }}>

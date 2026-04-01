@@ -16,6 +16,11 @@ export function CountUpNumber({ value, duration = 800, style, prefix = "", suffi
   const animatedValue = useSharedValue(0);
   const [displayText, setDisplayText] = useState(prefix + (formatAsCurrency ? formatINR(0) : "0") + suffix);
 
+  const updateDisplay = (current: number) => {
+    const formatted = formatAsCurrency ? formatINR(current) : formatIndianNumber(current);
+    setDisplayText(`${prefix}${formatted}${suffix}`);
+  };
+
   useEffect(() => {
     animatedValue.value = withTiming(value, { duration, easing: Easing.out(Easing.ease) });
   }, [value]);
@@ -23,8 +28,7 @@ export function CountUpNumber({ value, duration = 800, style, prefix = "", suffi
   useAnimatedReaction(
     () => Math.round(animatedValue.value),
     (current) => {
-      const formatted = formatAsCurrency ? formatINR(current) : formatIndianNumber(current);
-      runOnJS(setDisplayText)(`${prefix}${formatted}${suffix}`);
+      runOnJS(updateDisplay)(current);
     }
   );
 

@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { View, Text, ScrollView, RefreshControl } from "react-native";
+import { View, Text, ScrollView, RefreshControl, Pressable, Alert } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
@@ -117,9 +117,19 @@ export default function Dashboard() {
               {formatDate(today)}
             </Text>
           </View>
-          <View style={{ flexDirection: "row", gap: 16, alignItems: "center", marginTop: 4 }}>
-            <Bell size={22} color="rgba(255,255,255,0.85)" />
-            <Settings size={22} color="rgba(255,255,255,0.85)" />
+          <View style={{ flexDirection: "row", gap: 12, alignItems: "center", marginTop: 4 }}>
+            <Pressable
+              onPress={() => Alert.alert("Notifications", "No new notifications")}
+              style={{ padding: 6, backgroundColor: "rgba(255,255,255,0.15)", borderRadius: 10 }}
+            >
+              <Bell size={20} color="#FFFFFF" />
+            </Pressable>
+            <Pressable
+              onPress={() => router.push("/settings" as any)}
+              style={{ padding: 6, backgroundColor: "rgba(255,255,255,0.15)", borderRadius: 10 }}
+            >
+              <Settings size={20} color="#FFFFFF" />
+            </Pressable>
           </View>
         </View>
       </LinearGradient>

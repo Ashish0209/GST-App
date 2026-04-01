@@ -27,8 +27,8 @@ export function LineItemRow({ item, index, onUpdate, onDelete }: LineItemRowProp
           placeholderTextColor={colors.text.secondary}
           style={{ flex: 1, fontFamily: "Inter_400Regular", fontSize: 13, color: colors.text.secondary, borderBottomWidth: 1, borderBottomColor: "rgba(30,58,95,0.08)", paddingBottom: 4 }} />
       </View>
-      {/* Row 2: Qty + Rate + Tax */}
-      <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+      {/* Row 2: Qty + Rate */}
+      <View style={{ flexDirection: "row", gap: 10 }}>
         <View style={{ flex: 1 }}>
           <Text style={{ fontFamily: "Inter_500Medium", fontSize: 10, color: colors.text.secondary, marginBottom: 2 }}>Qty</Text>
           <TextInput value={String(item.quantity)} keyboardType="numeric"
@@ -41,18 +41,19 @@ export function LineItemRow({ item, index, onUpdate, onDelete }: LineItemRowProp
             onChangeText={(v) => onUpdate(item.id, { rate: Number(v) || 0, amount: item.quantity * (Number(v) || 0) })}
             style={{ fontFamily: "Inter_600SemiBold", fontSize: 14, color: colors.text.primary, borderBottomWidth: 1, borderBottomColor: "rgba(30,58,95,0.08)", paddingBottom: 2 }} />
         </View>
-        <View style={{ flex: 1 }}>
-          <Text style={{ fontFamily: "Inter_500Medium", fontSize: 10, color: colors.text.secondary, marginBottom: 2 }}>Tax %</Text>
-          <View style={{ flexDirection: "row", gap: 4 }}>
-            {TAX_SLABS.map((slab) => (
-              <Pressable key={slab} onPress={() => onUpdate(item.id, { taxSlab: slab })}
-                style={{ paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4,
-                  backgroundColor: item.taxSlab === slab ? colors.accent.DEFAULT : "rgba(30,58,95,0.06)" }}>
-                <Text style={{ fontFamily: "Inter_500Medium", fontSize: 10,
-                  color: item.taxSlab === slab ? "#FFFFFF" : colors.text.secondary }}>{slab}%</Text>
-              </Pressable>
-            ))}
-          </View>
+      </View>
+      {/* Row 3: Tax slab selector */}
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+        <Text style={{ fontFamily: "Inter_500Medium", fontSize: 11, color: colors.text.secondary }}>Tax</Text>
+        <View style={{ flexDirection: "row", gap: 6, flexWrap: "wrap" }}>
+          {TAX_SLABS.map((slab) => (
+            <Pressable key={slab} onPress={() => onUpdate(item.id, { taxSlab: slab })}
+              style={{ paddingHorizontal: 10, paddingVertical: 4, borderRadius: 6,
+                backgroundColor: item.taxSlab === slab ? colors.accent.DEFAULT : "rgba(30,58,95,0.06)" }}>
+              <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 12,
+                color: item.taxSlab === slab ? "#FFFFFF" : colors.text.secondary }}>{slab}%</Text>
+            </Pressable>
+          ))}
         </View>
       </View>
       {/* Row 3: Total + Delete */}

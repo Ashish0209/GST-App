@@ -1,6 +1,6 @@
 import { View, Text, Pressable } from "react-native";
 import { useRouter } from "expo-router";
-import { Users, BarChart3 } from "lucide-react-native";
+import { Users, BarChart3, Settings, LogOut } from "lucide-react-native";
 import { colors } from "../../theme";
 
 export default function More() {
@@ -8,6 +8,7 @@ export default function More() {
   const items = [
     { label: "Contacts", icon: Users, route: "/contacts" as const },
     { label: "Reports", icon: BarChart3, route: "/reports" as const },
+    { label: "Settings", icon: Settings, route: "/settings" as const },
   ];
   return (
     <View style={{ flex: 1, backgroundColor: "#F8FAFC", paddingTop: 60, paddingHorizontal: 16 }}>
