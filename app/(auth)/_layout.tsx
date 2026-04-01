@@ -1,8 +1,11 @@
-// BillBook/app/(auth)/_layout.tsx
 import { Stack } from "expo-router";
 
 export default function AuthLayout() {
   return (
-    <Stack screenOptions={{ headerShown: false }} />
+    <Stack screenOptions={{ headerShown: false, animation: "slide_from_right" }}>
+      <Stack.Screen name="welcome" />
+      <Stack.Screen name="business-setup" />
+      <Stack.Screen name="tour" />
+    </Stack>
   );
 }
