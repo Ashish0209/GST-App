@@ -1,5 +1,6 @@
 import { useRef, useState, useMemo } from "react";
-import { View, Text, SectionList, SafeAreaView } from "react-native";
+import { View, Text, SectionList } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { MonthPicker } from "../../components/ledger/MonthPicker";
 import { LedgerSummary } from "../../components/ledger/LedgerSummary";

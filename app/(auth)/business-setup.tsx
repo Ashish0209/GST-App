@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, Text, TextInput, Pressable, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring, FadeInDown } from "react-native-reanimated";
@@ -19,7 +19,11 @@ function BusinessTypeCard({ item, selected, onSelect, index }: {
   item: typeof BUSINESS_TYPES[0]; selected: boolean; onSelect: () => void; index: number;
 }) {
   const checkScale = useSharedValue(selected ? 1 : 0);
-  checkScale.value = withSpring(selected ? 1 : 0, { damping: 15, stiffness: 200 });
+
+  useEffect(() => {
+    checkScale.value = withSpring(selected ? 1 : 0, { damping: 15, stiffness: 200 });
+  }, [selected]);
+
   const checkStyle = useAnimatedStyle(() => ({ transform: [{ scale: checkScale.value }] }));
 
   return (

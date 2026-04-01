@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from "react";
-import { View, Text, ScrollView, Pressable, SafeAreaView } from "react-native";
+import { View, Text, ScrollView, Pressable } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { useRouter } from "expo-router";
 import { ArrowLeft, Plus } from "lucide-react-native";

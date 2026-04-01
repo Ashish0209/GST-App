@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { View, Text, Pressable, FlatList } from "react-native";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import { View, Text, Pressable } from "react-native";
+import BottomSheet, { BottomSheetView, BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { useRef, useCallback } from "react";
 import { SearchBar } from "../ui/SearchBar";
 import { Avatar } from "../ui/Avatar";
@@ -44,8 +44,8 @@ export function CustomerSelector({ selected, onSelect }: CustomerSelectorProps) 
       <BottomSheet ref={bottomSheetRef} index={-1} snapPoints={["70%"]} enablePanDownToClose>
         <BottomSheetView style={{ flex: 1, padding: 16 }}>
           <SearchBar placeholder="Search customers..." value={query} onChangeText={setQuery} />
-          <FlatList data={filtered} keyExtractor={(c) => c.id} style={{ marginTop: 12 }}
-            renderItem={({ item }) => (
+          <BottomSheetFlatList<Contact> data={filtered} keyExtractor={(c: Contact) => c.id} style={{ marginTop: 12 }}
+            renderItem={({ item }: { item: Contact }) => (
               <Pressable onPress={() => { onSelect(item); closeSheet(); setQuery(""); }}
                 style={{ flexDirection: "row", alignItems: "center", gap: 12, padding: 12, borderRadius: 8 }}>
                 <Avatar name={item.name} size={36} />

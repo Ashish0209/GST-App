@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Tabs } from "expo-router";
 import { Text } from "react-native";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-native-reanimated";
@@ -14,7 +15,11 @@ const tabConfig: { name: string; label: string; icon: LucideIcon }[] = [
 
 function TabIcon({ icon: Icon, label, focused }: { icon: LucideIcon; label: string; focused: boolean }) {
   const scale = useSharedValue(focused ? 1.1 : 1);
-  scale.value = withSpring(focused ? 1.1 : 1, { damping: 15 });
+
+  useEffect(() => {
+    scale.value = withSpring(focused ? 1.1 : 1, { damping: 15 });
+  }, [focused]);
+
   const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
   return (
     <Animated.View style={[animatedStyle, { alignItems: "center", gap: 2, paddingTop: 6 }]}>
