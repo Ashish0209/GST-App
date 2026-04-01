@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { View, Text, ScrollView, RefreshControl } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -8,6 +8,7 @@ import { StatWidget } from "../../components/dashboard/StatWidget";
 import { QuickActions } from "../../components/dashboard/QuickActions";
 import { RecentActivity } from "../../components/dashboard/RecentActivity";
 import { MiniChart } from "../../components/dashboard/MiniChart";
+import { SkeletonLoader } from "../../components/ui/SkeletonLoader";
 import { colors } from "../../theme";
 import { getGreeting, formatDate } from "../../utils/format";
 import { mockUser } from "../../data/mock/user";
@@ -25,10 +26,51 @@ const WEEKLY_DATA = [
   { label: "Sun", value: 12000 },
 ];
 
+function DashboardSkeleton({ insets }: { insets: { top: number; bottom: number } }) {
+  return (
+    <View style={{ flex: 1, backgroundColor: colors.surface }}>
+      {/* Header skeleton */}
+      <LinearGradient colors={[...colors.gradient.navy]} style={{ paddingTop: insets.top + 12, paddingBottom: 24, paddingHorizontal: 20, gap: 8 }}>
+        <SkeletonLoader width={120} height={13} borderRadius={6} />
+        <SkeletonLoader width={200} height={20} borderRadius={8} />
+        <SkeletonLoader width={90} height={12} borderRadius={6} />
+      </LinearGradient>
+      <ScrollView contentContainerStyle={{ padding: 16, gap: 20, paddingBottom: insets.bottom + 24 }} showsVerticalScrollIndicator={false}>
+        {/* Stat grid skeleton */}
+        <View style={{ gap: 12 }}>
+          <View style={{ flexDirection: "row", gap: 12 }}>
+            <SkeletonLoader width="48%" height={88} borderRadius={16} />
+            <SkeletonLoader width="48%" height={88} borderRadius={16} />
+          </View>
+          <View style={{ flexDirection: "row", gap: 12 }}>
+            <SkeletonLoader width="48%" height={88} borderRadius={16} />
+            <SkeletonLoader width="48%" height={88} borderRadius={16} />
+          </View>
+        </View>
+        {/* Quick actions skeleton */}
+        <SkeletonLoader width="100%" height={100} borderRadius={16} />
+        {/* Chart skeleton */}
+        <SkeletonLoader width="100%" height={160} borderRadius={16} />
+        {/* Activity skeleton */}
+        <View style={{ gap: 10 }}>
+          <SkeletonLoader width={120} height={18} borderRadius={8} />
+          {[0, 1, 2].map((i) => <SkeletonLoader key={i} width="100%" height={68} borderRadius={12} />)}
+        </View>
+      </ScrollView>
+    </View>
+  );
+}
+
 export default function Dashboard() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const transactions = useLedgerStore((s) => s.transactions);
   const invoices = useInvoiceStore((s) => s.invoices);
@@ -53,6 +95,8 @@ export default function Dashboard() {
     setRefreshing(true);
     setTimeout(() => setRefreshing(false), 1000);
   }, []);
+
+  if (loading) return <DashboardSkeleton insets={insets} />;
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.surface }}>
