@@ -110,14 +110,14 @@ export const mockInvoices: Invoice[] = [
     customerGstin: "32JJJDN1234J1Z6",
     supplyType: "inter",
     lineItems: [
-      { id: "li_006a", name: "Gold Plated Bangles (set of 6)", hsnCode: "7117", quantity: 10, rate: 4500, taxSlab: 3, amount: 45000 },
-      { id: "li_006b", name: "Silver Anklets (pair)", hsnCode: "7113", quantity: 8, rate: 2200, taxSlab: 3, amount: 17600 },
+      { id: "li_006a", name: "Gold Plated Bangles (set of 6)", hsnCode: "7117", quantity: 10, rate: 4500, taxSlab: 5, amount: 45000 },
+      { id: "li_006b", name: "Silver Anklets (pair)", hsnCode: "7113", quantity: 8, rate: 2200, taxSlab: 5, amount: 17600 },
     ],
     subtotal: 62600,
     cgst: 0,
     sgst: 0,
-    igst: 1878,
-    total: 64478,
+    igst: 3130,
+    total: 65730,
     status: "overdue",
   },
   {
