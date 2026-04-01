@@ -1,18 +1,16 @@
 import { View, Text } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
 import type { ReportData } from "../../data/types";
 import { formatINR } from "../../utils/format";
 import { colors } from "../../theme";
 
 interface GSTSummaryReportProps { data: ReportData["gstSummary"]; }
 
-function StatCard({ label, value, color, bg, index }: { label: string; value: number; color: string; bg: string; index: number }) {
+function StatCard({ label, value, color, bg }: { label: string; value: number; color: string; bg: string; index: number }) {
   return (
-    <Animated.View entering={FadeInDown.delay(index * 100).springify()}
-      style={{ flex: 1, backgroundColor: bg, borderRadius: 14, padding: 14, alignItems: "center", gap: 6 }}>
+    <View style={{ flex: 1, backgroundColor: bg, borderRadius: 14, padding: 14, alignItems: "center", gap: 6 }}>
       <Text style={{ fontFamily: "Inter_400Regular", fontSize: 11, color, textAlign: "center" }}>{label}</Text>
       <Text style={{ fontFamily: "Inter_700Bold", fontSize: 15, color }}>{formatINR(value)}</Text>
-    </Animated.View>
+    </View>
   );
 }
 

@@ -1,5 +1,4 @@
-import { Text } from "react-native";
-import Animated, { FadeIn } from "react-native-reanimated";
+import { View, Text } from "react-native";
 import { colors } from "../../theme";
 
 type BadgeVariant = "filed" | "pending" | "overdue" | "paid" | "sent" | "draft";
@@ -18,9 +17,8 @@ interface StatusBadgeProps { status: BadgeVariant; label?: string; }
 export function StatusBadge({ status, label }: StatusBadgeProps) {
   const config = variantConfig[status];
   return (
-    <Animated.View entering={FadeIn.duration(300)}
-      style={{ backgroundColor: config.bg, paddingHorizontal: 10, paddingVertical: 4, borderRadius: 9999 }}>
+    <View style={{ backgroundColor: config.bg, paddingHorizontal: 10, paddingVertical: 4, borderRadius: 9999 }}>
       <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 12, color: config.text }}>{label ?? config.label}</Text>
-    </Animated.View>
+    </View>
   );
 }

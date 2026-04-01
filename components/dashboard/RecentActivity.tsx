@@ -1,5 +1,4 @@
 import { View, Text } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
 import { CategoryIcon } from "../ui/CategoryIcon";
 import { colors } from "../../theme";
 import { formatINR, timeAgo } from "../../utils/format";
@@ -11,8 +10,8 @@ export function RecentActivity({ transactions }: RecentActivityProps) {
   return (
     <View style={{ gap: 10 }}>
       <Text style={{ fontFamily: "Inter_700Bold", fontSize: 18, color: colors.text.primary }}>Recent Activity</Text>
-      {transactions.slice(0, 5).map((txn, index) => (
-        <Animated.View key={txn.id} entering={FadeInDown.delay(index * 60).duration(300)}
+      {transactions.slice(0, 5).map((txn) => (
+        <View key={txn.id}
           style={{ flexDirection: "row", alignItems: "center", backgroundColor: colors.card, padding: 14, borderRadius: 12, gap: 12 }}>
           <CategoryIcon category={txn.category} />
           <View style={{ flex: 1 }}>
@@ -24,7 +23,7 @@ export function RecentActivity({ transactions }: RecentActivityProps) {
           <Text style={{ fontFamily: "Inter_700Bold", fontSize: 15, color: txn.type === "income" ? colors.accent.DEFAULT : colors.error }}>
             {txn.type === "income" ? "+" : "-"}{formatINR(txn.amount)}
           </Text>
-        </Animated.View>
+        </View>
       ))}
     </View>
   );

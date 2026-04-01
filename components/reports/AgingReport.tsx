@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { View, Text } from "react-native";
-import Animated, { useSharedValue, useAnimatedStyle, withSpring, FadeInDown } from "react-native-reanimated";
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-native-reanimated";
 import type { ReportData } from "../../data/types";
 import { formatINR } from "../../utils/format";
 import { colors } from "../../theme";
@@ -62,9 +62,8 @@ export function AgingReport({ data }: AgingReportProps) {
       <View style={{ backgroundColor: colors.card, borderRadius: 16, padding: 16, gap: 0 }}>
         <Text style={{ fontFamily: "Inter_700Bold", fontSize: 15, color: colors.text.primary, marginBottom: 12 }}>Overdue Contacts</Text>
         {data.overdueContacts.map((contact, idx) => (
-          <Animated.View
+          <View
             key={contact.name}
-            entering={FadeInDown.delay(idx * 80).springify()}
             style={{
               flexDirection: "row", alignItems: "center", paddingVertical: 12,
               borderTopWidth: idx === 0 ? 0 : 1, borderTopColor: "rgba(30,58,95,0.06)",
@@ -82,7 +81,7 @@ export function AgingReport({ data }: AgingReportProps) {
                 <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 11, color: colors.error }}>{contact.days}d overdue</Text>
               </View>
             </View>
-          </Animated.View>
+          </View>
         ))}
       </View>
     </View>

@@ -1,5 +1,4 @@
 import { View, Text } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
 import { CategoryIcon } from "../ui/CategoryIcon";
 import { formatINR } from "../../utils/format";
 import type { Transaction } from "../../data/types";
@@ -10,14 +9,13 @@ interface EntryRowProps {
   index: number;
 }
 
-export function EntryRow({ transaction, index }: EntryRowProps) {
+export function EntryRow({ transaction, index: _index }: EntryRowProps) {
   const isIncome = transaction.type === "income";
   const amountColor = isIncome ? colors.accent.DEFAULT : colors.error;
   const prefix = isIncome ? "+" : "-";
 
   return (
-    <Animated.View
-      entering={FadeInDown.delay(index * 40).duration(350).springify().damping(16)}
+    <View
       style={{
         flexDirection: "row",
         alignItems: "center",
@@ -49,6 +47,6 @@ export function EntryRow({ transaction, index }: EntryRowProps) {
           {transaction.time}
         </Text>
       </View>
-    </Animated.View>
+    </View>
   );
 }

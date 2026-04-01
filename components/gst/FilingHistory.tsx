@@ -1,5 +1,4 @@
 import { View, Text } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
 import { StatusBadge } from "../ui/StatusBadge";
 import type { GSTReturn } from "../../data/types";
 import { colors } from "../../theme";
@@ -13,8 +12,7 @@ export function FilingHistory({ returns }: FilingHistoryProps) {
   if (returns.length === 0) return null;
 
   return (
-    <Animated.View
-      entering={FadeInDown.delay(250).duration(400).springify().damping(15)}
+    <View
       style={{
         backgroundColor: "rgba(255,255,255,0.85)",
         borderRadius: 16,
@@ -71,6 +69,6 @@ export function FilingHistory({ returns }: FilingHistoryProps) {
           </View>
         );
       })}
-    </Animated.View>
+    </View>
   );
 }

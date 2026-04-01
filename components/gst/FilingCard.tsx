@@ -1,5 +1,4 @@
 import { View, Text, Pressable } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
 import { ProgressRing } from "../ui/ProgressRing";
 import { StatusBadge } from "../ui/StatusBadge";
 import { Download } from "lucide-react-native";
@@ -34,8 +33,7 @@ export function FilingCard({ gstReturn }: FilingCardProps) {
   const formattedDeadline = formatDate(deadline);
 
   return (
-    <Animated.View
-      entering={FadeInDown.delay(50).duration(400).springify().damping(15)}
+    <View
       style={{
         backgroundColor: getCardTint(gstReturn.status),
         borderRadius: 16,
@@ -109,6 +107,6 @@ export function FilingCard({ gstReturn }: FilingCardProps) {
           </Text>
         </Pressable>
       </View>
-    </Animated.View>
+    </View>
   );
 }

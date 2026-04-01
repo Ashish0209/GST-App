@@ -1,5 +1,4 @@
 import { Pressable, View, Text } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
 import { Avatar } from "../ui/Avatar";
 import { formatINR } from "../../utils/format";
 import type { Contact } from "../../data/types";
@@ -23,13 +22,13 @@ function getOutstandingLabel(amount: number): string {
   return "₹0";
 }
 
-export function ContactRow({ contact, index, onPress }: ContactRowProps) {
+export function ContactRow({ contact, index: _index, onPress }: ContactRowProps) {
   const truncatedGstin = contact.gstin.length > 10
     ? contact.gstin.slice(0, 10) + "..."
     : contact.gstin;
 
   return (
-    <Animated.View entering={FadeInDown.delay(index * 30).duration(320).springify().damping(16)}>
+    <View>
       <Pressable
         onPress={onPress}
         style={({ pressed }) => ({
@@ -67,6 +66,6 @@ export function ContactRow({ contact, index, onPress }: ContactRowProps) {
           </Text>
         </View>
       </Pressable>
-    </Animated.View>
+    </View>
   );
 }

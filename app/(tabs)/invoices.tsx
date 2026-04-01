@@ -1,5 +1,4 @@
 import { View, Text, ScrollView, Pressable } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
@@ -11,12 +10,12 @@ import { formatINR, formatDate } from "../../utils/format";
 import { colors } from "../../theme";
 import type { Invoice } from "../../data/types";
 
-function InvoiceCard({ invoice, index }: { invoice: Invoice; index: number }) {
+function InvoiceCard({ invoice, index: _index }: { invoice: Invoice; index: number }) {
   const router = useRouter();
   const date = new Date(invoice.date);
 
   return (
-    <Animated.View entering={FadeInDown.delay(index * 60).springify()}>
+    <View>
       <Pressable
         onPress={() => router.push("/invoice/create")}
         style={{
@@ -48,7 +47,7 @@ function InvoiceCard({ invoice, index }: { invoice: Invoice; index: number }) {
           </View>
         </View>
       </Pressable>
-    </Animated.View>
+    </View>
   );
 }
 
